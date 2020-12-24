@@ -17,10 +17,14 @@ spec:
       containers:
       - name: github-runner
         image: gjensidigetest.azurecr.io/plt/github-runner
+        command: ["/bin/sh", "-ec", "sleep 1000"]
         env:
         - name: GITHUB_OWNER
           value: R-I-T-E-S-H
         - name: GITHUB_REPOSITORY
           value: selfhosted-runners
         - name: GITHUB_PAT # should stored separately in a Kubernetes secret
-          value: 
+          valueFrom:
+            secretKeyRef:
+              name: githubpat
+              key: pat
